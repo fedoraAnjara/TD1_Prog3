@@ -1,0 +1,9 @@
+openapi: 3.0.0
+info:
+  title: Library-management-api
+  description: The API for the Library management project
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/HEIFEDORA3/LibraryManagementTD/1.0.0
+  description: SwaggerHub API Auto Mocking
+components: {}

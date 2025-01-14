@@ -88,6 +88,67 @@ paths:
           description: Book deleted successfully
         "404":
           description: Book not found
+  /authors:
+    get:
+      summary: Get a list of authors
+      parameters:
+      - name: authorName
+        in: query
+        description: Filter authors by name
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: List of authors returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Author'
+    put:
+      summary: Update an existing author
+      description: This request is idempotente
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Author'
+        required: true
+      responses:
+        "200":
+          description: Author update successfully
+    post:
+      summary: Create new author
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Author'
+        required: true
+      responses:
+        "200":
+          description: New author added
+    delete:
+      summary: Delete author
+      description: Delete author by ID
+      parameters:
+      - name: ID
+        in: query
+        description: the id of the author ton delete
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Author deleted successfully
+        "404":
+          description: Author not found or not exist
 components:
   schemas:
     Book:
@@ -118,3 +179,20 @@ components:
         releaseDate:
           type: string
           format: date
+    Author:
+      required:
+      - name
+      type: object
+      properties:
+        ID:
+          type: integer
+          description: Author's unique identifier
+        Name:
+          type: string
+          description: It can be the author's real name or their pen name
+        Sex:
+          type: string
+          description: Gender of the author
+          enum:
+          - M
+          - F

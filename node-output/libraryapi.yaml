@@ -6,4 +6,74 @@ info:
 servers:
 - url: https://virtserver.swaggerhub.com/HEIFEDORA3/LibraryManagementTD/1.0.0
   description: SwaggerHub API Auto Mocking
-components: {}
+paths:
+  /books:
+    get:
+      summary: Get the whole books
+      description: Retrieves the current book list
+      parameters:
+      - name: bookName
+        in: query
+        description: Filter books by name/tittle
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: releaseDateFrom
+        in: query
+        description: Start date for filtering books by release date
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: date
+      - name: releaseDateTo
+        in: query
+        description: End date for filtering books by release date
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: date
+      responses:
+        "200":
+          description: "ok, It's a succes"
+          content:
+            applicaation/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+components:
+  schemas:
+    Book:
+      required:
+      - author
+      - bookName
+      type: object
+      properties:
+        ID:
+          type: integer
+          description: A book unique identifier
+        bookName:
+          type: string
+          description: The title of the book
+        author:
+          type: string
+          description: The guy who write the book
+        pageNumber:
+          type: integer
+          description: Total number of pages
+        topic:
+          type: string
+          description: The genre of the book
+          enum:
+          - ROMANCE
+          - COMEDY
+          - OTHER
+        releaseDate:
+          type: string
+          format: date

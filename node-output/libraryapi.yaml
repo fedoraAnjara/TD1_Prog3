@@ -181,7 +181,7 @@ components:
           format: date
     Author:
       required:
-      - name
+      - Name
       type: object
       properties:
         ID:

@@ -42,11 +42,52 @@ paths:
         "200":
           description: "ok, It's a succes"
           content:
-            applicaation/json:
+            application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
+    put:
+      summary: Update an existing book
+      description: this request is idempotent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+        required: true
+      responses:
+        "200":
+          description: Book update successfully
+    post:
+      summary: Add new book
+      description: create and add new book
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+        required: true
+      responses:
+        "200":
+          description: Book created successfully
+    delete:
+      summary: Delete book
+      description: Delete book by ID
+      parameters:
+      - name: ID
+        in: query
+        description: The id of the book to delete
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Book deleted successfully
+        "404":
+          description: Book not found
 components:
   schemas:
     Book:
